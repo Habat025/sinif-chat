@@ -4,7 +4,7 @@ import threading
 import time
 
 def main(pencere: ft.Page):
-	pencere.pubsub.subscribe(lambda mesaj: mesajlistesi.controls.append(ft.Text(mesaj)))
+	pencere.pubsub.subscribe(lambda m: (mesajlistesi.controls.append(ft.Text(m), mesajlistesi.update())))
 	pencere.title = "6-E sınıfı Whatsapp"
 	pencere.vertical_alignment = ft.MainAxisAlignment.CENTER
 	pencere.thememode = ft.ThemeMode.DARK
@@ -47,7 +47,8 @@ def main(pencere: ft.Page):
 				yenicumle = satir.decode("utf-8").strip()
 				mesajlistesi.controls.append(ft.Text(yenicumle, size=20))
 				pencere.pubsub.send_all(yenicumle)
-				pencere.update()
+				mesajlistesi.update()
+			time.sleep(0.10)
 
 
 	t = threading.Thread(target=mesajyazdir, daemon=True)
