@@ -4,11 +4,12 @@ import threading
 import time
 
 def main(pencere: ft.Page):
+	pencere.pubsub.subscribe(lambda mesaj: mesajlistesi.controls.append(ft.Text(mesaj)))
 	pencere.title = "6-E sınıfı Whatsapp"
 	pencere.vertical_alignment = ft.MainAxisAlignment.CENTER
 	pencere.thememode = ft.ThemeMode.DARK
 
-	pencere.pubsub.subscribe(lambda mesaj: mesajlistesi.controls.append(ft.Text(mesaj)))
+	
 	yazikutusu = ft.TextField(label="Mesajınızı girin:", multiline=True, expand=True, border_color=ft.Colors.WHITE,)
 
 
@@ -22,21 +23,35 @@ def main(pencere: ft.Page):
 		nonlocal url
 		mesaj = yazikutusu.value
 
+		
+		if mesaj:
+			try:
+				requests.post(url, data=mesaj, stream=True)
+				yazikutusu.value = ""
+				yazikutusu.update()
+			
 
-		try:
-			requests.post(url, data=mesaj, stream=True, timeout=60)
-			pencere.Pubsub.send_all(mesaj)
-			pencere.pubsub.send_all(mesaj)
-			mesajlistesi.controls.append(ft.Text(mesaj, size=24), )
-			yazikutusu.value = ""
+			except:
+				mesajlistesi.controls.append(ft.Text("Bağlantı yok, veya başka bir durum oldu, ", size=24))
 			mesajlistesi.update()
-			yazikutusu.update()
-			pencere.update
 
-		except:
-			time.sleep(2)
 
-	threading.Thread(target=mesaj_godner, daemon=True).start()
+	def mesajyazdir():
+		url = "https://ntfy.sh/s4n4f_wh4ts44p_025/raw"
+		mesaj = yazikutusu.value
+
+		mesaj_godner()
+		cumle = requests.get(url,  stream=True)
+		for satir in cumle.iter_lines():
+			if satir:
+				yenicumle = satir.decode("utf-8").strip()
+				mesajlistesi.controls.append(ft.Text(yenicumle, size=20))
+				pencere.pubsub.send_all(yenicumle)
+				pencere.update()
+
+
+	t = threading.Thread(target=mesajyazdir, daemon=True)
+	t.start()
 
 	btn = ft.IconButton(icon=ft.Icons.SEND, icon_size = 24, on_click=mesaj_godner)
 	yazi = ft.Text("")
