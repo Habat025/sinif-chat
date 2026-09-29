@@ -20,13 +20,12 @@ def main(pencere: ft.Page):
 
 
 	def mesaj_godner():
-		url = "https://ntfy.sh/s4n4f_wh4ts44p_025"
 		mesaj = yazikutusu.value
 
 		
 		if mesaj:
 			try:
-				requests.post(url, data=mesaj, stream=True)
+				requests.post("https://ntfy.sh/s4n4f_wh4ts44p_025", data=mesaj, stream=True)
 				yazikutusu.value = ""
 				yazikutusu.update()
 			
@@ -37,11 +36,10 @@ def main(pencere: ft.Page):
 
 
 	def mesajyazdir():
-		url = "https://ntfy.sh/s4n4f_wh4ts44p_025/raw"
 		mesaj = yazikutusu.value
 
 		mesaj_godner()
-		cumle = requests.get(url,  stream=True)
+		cumle = requests.get("https://ntfy.sh/s4n4f_wh4ts44p_025/raw",  stream=True)
 		for satir in cumle.iter_lines():
 			if satir:
 				yenicumle = satir.decode("utf-8").strip()
