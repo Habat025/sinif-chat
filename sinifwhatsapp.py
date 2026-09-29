@@ -6,10 +6,17 @@ import time
 def main(pencere: ft.Page):
 	pencere.title = "6-E sınıfı Whatsapp"
 	pencere.vertical_alignment = ft.MainAxisAlignment.CENTER
+	pencere.thememode = ft.ThemeMode.DARK
 
-	yazikutusu = ft.TextField(label="Mesajınızı girin:", multiline=True, expand=True, border_color=ft.Colors.WHITE, color="WHITE")
+	pencere.pubsub.subscribe(lambda mesaj: mesajlistesi.controls.append(ft.Text(mesaj)))
+	yazikutusu = ft.TextField(label="Mesajınızı girin:", multiline=True, expand=True, border_color=ft.Colors.WHITE,)
+
+
+
+	mesajlistesi = ft.ListView(expand=True, spacing=10, auto_scroll=True)
 
 	url = "https://ntfy.sh/s4n4f_wh4ts44p_025/raw"
+
 
 	def mesaj_godner():
 		nonlocal url
@@ -17,11 +24,14 @@ def main(pencere: ft.Page):
 
 
 		try:
-			requests.post(url, data=mesaj, stream=True, timeout=10)
+			requests.post(url, data=mesaj, stream=True, timeout=60)
+			pencere.Pubsub.send_all(mesaj)
+			pencere.pubsub.send_all(mesaj)
 			mesajlistesi.controls.append(ft.Text(mesaj, size=24), )
-			yazikutusu.value("")
+			yazikutusu.value = ""
 			mesajlistesi.update()
 			yazikutusu.update()
+			pencere.update
 
 		except:
 			time.sleep(2)
@@ -32,8 +42,6 @@ def main(pencere: ft.Page):
 	yazi = ft.Text("")
 
 	alt_bar = ft.Row([yazikutusu, btn])
-
-	mesajlistesi = ft.ListView(expand=True, spacing=10, auto_scroll=True)
 
 
 	pencere.add(yazi, mesajlistesi, alt_bar)
