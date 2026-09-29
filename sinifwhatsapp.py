@@ -16,11 +16,11 @@ def main(pencere: ft.Page):
 
 	mesajlistesi = ft.ListView(expand=True, spacing=10, auto_scroll=True)
 
-	url = "https://ntfy.sh/s4n4f_wh4ts44p_025/raw"
+	url = "https://ntfy.sh/s4n4f_wh4ts44p_025"
 
 
 	def mesaj_godner():
-		nonlocal url
+		url = "https://ntfy.sh/s4n4f_wh4ts44p_025"
 		mesaj = yazikutusu.value
 
 		
