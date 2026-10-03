@@ -115,7 +115,7 @@ def main(pencere: ft.Page):
 					bolum.content.controls.append(ft.Text("Lütfen Her Alanı Doldurun"))
 					return
 				else:
-					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=tam_mesaj,tam_soru.encode("utf-8"))
+					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=f"{tam_mesaj,tam_soru}".encode("utf-8"))
 
 
 			except:
