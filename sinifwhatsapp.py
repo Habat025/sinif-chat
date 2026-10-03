@@ -23,7 +23,7 @@ def main(pencere: ft.Page):
 	def kitaplatac():
 		pencere.clean()
 
-		her_yer = ft.Container(content=ft.Column(controls=[
+		kitaplar = ft.Container(content=ft.Column(controls=[
 			ft.Text("Merhaba! aşağıdaki kitaplar hocaların tavsiyesidir, sadece 6. sınıf kitaplatı vardır ;)"),
 			ft.Text("Matematik Kitapları:"),
 			ft.Button("Benim Hocam Yayınları 6. Sınıf Benim Fasikülüm",
@@ -57,7 +57,7 @@ def main(pencere: ft.Page):
 
 			], wrap=True),expand=True)
 
-		pencere.add(her_yer, alt_bar)
+		pencere.add(kitaplar, alt_bar)
 
 
 		
@@ -67,7 +67,7 @@ def main(pencere: ft.Page):
 		pencere.clean()
 		
 
-		her_yer = ft.Container(content=ft.Column(controls=[
+		siteler = ft.Container(content=ft.Column(controls=[
 			ft.Text("Alternatif Sitelere Hoş Geldin! aşağıdaki sitelerden soru çozebilirsin ;)"),
 			ft.Button("Derslig", url="https://www.derslig.com"),
 			ft.Button("Tonguç Akedemi", url="https://www.tongucakademi.com"),
@@ -78,7 +78,7 @@ def main(pencere: ft.Page):
 
 			],wrap=True), expand=True)
 
-		pencere.add(her_yer, alt_bar)
+		pencere.add(siteler, alt_bar)
 
 
 		
