@@ -11,7 +11,7 @@ def main(pencere: ft.Page):
 		pencere.clean()
 
 		her_yer = ft.Container(content=ft.Row(controls=[
-			ft.Text("Merhaba! Pear ders kutusuna hoş geldin! şuanlık menü boş :)", size=24)
+			ft.Text("Merhaba! Pear ders kutusuna hoş geldin! şuanlık menü boş :)")
 			], alignment = ft.CrossAxisAlignment.CENTER), expand=True, )
 
 
@@ -22,7 +22,7 @@ def main(pencere: ft.Page):
 		pencere.clean()
 
 		her_yer = ft.Container(content=ft.Column(controls=[
-			ft.Text("Merhaba! aşağıdaki kitaplar hocaların tavsiyesidir, sadece 6. sınıf kitaplatı vardır ;)", size=20),
+			ft.Text("Merhaba! aşağıdaki kitaplar hocaların tavsiyesidir, sadece 6. sınıf kitaplatı vardır ;)",),
 			ft.Text("Matematik Kitapları:"),
 			ft.Button("Benim Hocam Yayınları 6. Sınıf Benim Fasikülüm",
 			 on_click=lambda e: siteac("https://www.hepsiburada.com/benim-hocam-yayinlari-6-sinif-matematik-benim-fasikulum-benim-hocam-yayinlari-pm-HBC0000GR3YRO")),
@@ -52,21 +52,21 @@ def main(pencere: ft.Page):
 		pencere.add(her_yer, alt_bar)
 
 		def siteac(site):
-			webbrowser.open(site)
+			page.launch_url(site)
 
 
 	def alternatifac():
 		pencere.clean()
 
 		def siteac(site):
-			webbrowser.open(site)
+			pencere.launch_url(site)
 
-		her_yer = ft.Container(content=ft.Row(controls=[
+		her_yer = ft.Container(content=ft.Column(controls=[
 			ft.Text("Alternatif Sitelere Hoş Geldin! aşağıdaki sitelerden soru çozebilirsin ;)"),
 			ft.Text("İngilizce:"),
 			ft.Button("ELT Arena", on_click=lambda e: siteac("https://eltarena.com")),
 			ft.Button("Ortaokul İngilizce", on_click=lambda e: siteac("https://ortaokulingilizce.com")),
-			
+
 
 
 			],wrap=True), expand=True)
