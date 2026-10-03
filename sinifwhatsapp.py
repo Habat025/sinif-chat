@@ -52,7 +52,7 @@ def main(pencere: ft.Page):
 		pencere.add(her_yer, alt_bar)
 
 		def siteac(site):
-			page.launch_url(site)
+			pencere.launch_url(site)
 
 
 	def alternatifac():
