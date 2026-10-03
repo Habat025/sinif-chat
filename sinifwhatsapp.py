@@ -6,11 +6,7 @@ def main(pencere: ft.Page):
 	pencere.title = "Pear Ders Kutusu"
 	pencere.thememode = ft.ThemeMode.DARK
 
-	def siteac(site):
-		launcher = ft.UrlLauncher()
-		pencere.overlay.append(launcher)
-		pencere.update()
-		pencere.run_task(launcher, launcher_url, site)
+
 
 
 	def menuac():
@@ -54,7 +50,7 @@ def main(pencere: ft.Page):
 			ft.Button("Team Elt Publishing Team Mate 6. Sınıf İngilizce Practice and Skills Book",
 			 url="https://www.trendyol.com/team-elt-publishing/team-mate-6-sinif-ingilizce-practice-and-skills-book-2026-2027-guncel-baski-p-1190772125"),
 			ft.Button("Team Elt Publishing Ahead With English 6.sınıf Vocabulary Book Yayınları",
-			 url="https://www.trendyol.com/team-elt-publishing/ahead-with-english-6-sinif-vocabulary-book-yayinlari-p-412289472?boutiqueId=61&merchantId=701468")
+			 url="https://www.trendyol.com/team-elt-publishing/ahead-with-english-6-sinif-vocabulary-book-yayinlari-p-412289472?boutiqueId=61&merchantId=701468"),
 
 			ft.Text("NOT: bu kitapların doğru çıkmaması bizi ilgilendirmez ve hiç bir satın alım işlemince tevşik edicek bir eylem bulunmaz ;)")
 			
