@@ -1,71 +1,96 @@
 import flet as ft
-import requests
-import threading
-import time
+import shelve
+import webbrowser
 
 def main(pencere: ft.Page):
-	pencere.title = "6-E sınıfı Whatsapp"
-	pencere.vertical_alignment = ft.MainAxisAlignment.CENTER
+	pencere.title = "Pear Ders Kutusu"
 	pencere.thememode = ft.ThemeMode.DARK
 
-	
-	mesajlistesi = ft.ListView(expand=True, spacing=10, auto_scroll=True)
-	def mesaj_gelince():
-		mesajlistesi.controls.append(ft.Text(m))
-		mesajlistesi.update()
 
-	pencere.pubsub.subscribe(lambda m: mesaj_gelince)
+	def menuac():
+		pencere.clean()
 
-	yazikutusu = ft.TextField(label="Mesajınızı girin:", multiline=True, expand=True, border_color=ft.Colors.WHITE,)
+		her_yer = ft.Container(content=ft.Row(controls=[
+			ft.Text("Merhaba! Pear ders kutusuna hoş geldin! şuanlık menü boş :)", size=24)
+			], alignment = ft.CrossAxisAlignment.CENTER), expand=True, )
 
 
-
-	
-
-	url = "https://ntfy.sh/s4n4f_wh4ts44p_025"
+		pencere.add(her_yer, alt_bar)
 
 
-	def mesaj_godner():
-		mesaj = yazikutusu.value
+	def kitaplatac():
+		pencere.clean()
 
-		
-		def ekel: 
-			if mesaj:
-				try:
-					requests.post("https://ntfy.sh/s4n4f_wh4ts44p_025", data=mesaj, stream=True)
-					yazikutusu.value = ""
-					yazikutusu.update()
+		her_yer = ft.Container(content=ft.Column(controls=[
+			ft.Text("Merhaba! aşağıdaki kitaplar hocaların tavsiyesidir, sadece 6. sınıf kitaplatı vardır ;)", size=20),
+			ft.Text("Matematik Kitapları:"),
+			ft.Button("Benim Hocam Yayınları 6. Sınıf Benim Fasikülüm",
+			 on_click=lambda e: siteac("https://www.hepsiburada.com/benim-hocam-yayinlari-6-sinif-matematik-benim-fasikulum-benim-hocam-yayinlari-pm-HBC0000GR3YRO")),
+			ft.Button("Newton Yayınları 6. Sınıf Matemetik Soru Parkuru", 
+				on_click=lambda e: siteac("https://www.hepsiburada.com/6-sinif-soru-parkuru-matematik-set-pm-HBC0000JIWZL7")),
+			ft.Text("Türkçe Kitapları ve Okuma kitapları:"),
+			ft.Button("Hız Yayınları 6. Sınıf Türkçe Hibrit",
+			 on_click=lambda e: siteac("https://www.trendyol.com/hiz-yayinlari/hiz-6-sinif-hibrit-matematik-konu-anlatimli-p-962310243?boutiqueId=61&merchantId=121771")),
+			ft.Button("Hız Yayınları 6. Sınıf Türkçe Paragraf Soru Bankası",
+			 on_click=lambda e: siteac("https://www.trendyol.com/hiz-yayinlari/6-sinif-turkce-paragraf-soru-bankasi-p-43341801")),
+			ft.Button("Fenomen Yayıncılık 6. Sınıf Türkçe A Soru Bankası",
+			 on_click= lambda e: siteac("https://www.trendyol.com/fenomen-yayincilik/2027-6-sinif-turkce-a-soru-bankasi-kalem-seti-hediye-p-1197966878?boutiqueId=61&merchantId=652178")),
+			ft.Text("Okuma Kitapları:"),
+			ft.Button("Dünyanın En önemli öğrencisi- Şermin Yaşar",
+			 on_click= lambda e: siteac("https://www.trendyol.com/taze-kitap/dunyanin-en-onemli-ogrencisi-sermin-yasar-p-832799972")),
+			ft.Button("İyilik Timi- Genç Timaş",
+			 on_click=lambda e: siteac("https://www.trendyol.com/genc-timas/iyilik-timi-p-843293178")),
+			ft.Button("Zerdali Dedemle Bir Yıl- Çocuk Timaş",
+			 on_click=lambda e:siteac("https://www.trendyol.com/timas-cocuk/zerdali-dedemle-bir-yil-mustazen-p-104592414")),
+			ft.Button("Arkadıma Veda- Inkılap Yayınevi",
+			 on_click=lambda e: siteac("https://www.trendyol.com/inkilap-kitabevi/arkadasima-veda-p-204379122?boutiqueId=61&merchantId=106331")),
+			ft.Text("Din Kültürü ve Ahlak Bilgisi kitapları:"),
+			ft.Button("")
+
+			], wrap=True),expand=True)
+
+		pencere.add(her_yer, alt_bar)
+
+		def siteac(site):
+			webbrowser.open(site)
+
+
+	def alternatifac():
+		pencere.clean()
+
+		def siteac(site):
+			webbrowser.open(site)
+
+		her_yer = ft.Container(content=ft.Row(controls=[
+			ft.Text("Alternatif Sitelere Hoş Geldin! aşağıdaki sitelerden soru çozebilirsin ;)"),
+			ft.Text("İngilizce:"),
+			ft.Button("ELT Arena", on_click=lambda e: siteac("https://eltarena.com")),
+			ft.Button("Ortaokul İngilizce", on_click=lambda e: siteac("https://ortaokulingilizce.com")),
 			
 
-				except:
-					mesajlistesi.controls.append(ft.Text("Bağlantı yok, veya başka bir durum oldu, ", size=24))
-				mesajlistesi.update()
+
+			],wrap=True), expand=True)
+
+		pencere.add(her_yer, alt_bar)
 
 
-	def mesajyazdir():
-		mesaj = yazikutusu.value
+		
+		
 
-		while True:
-
-			cumle = requests.get("https://ntfy.sh/s4n4f_wh4ts44p_025/raw",  stream=True, timeout=60)
-			for satir in cumle.iter_lines():
-				if satir:
-					yenicumle = satir.decode("utf-8").strip()
-					mesajlistesi.controls.append(ft.Text(yenicumle, size=20))
-					pencere.pubsub.send_all(yenicumle)
-					mesajlistesi.update()
-				time.sleep(0.10)
+	alt_bar = ft.Row(controls=[
+		ft.IconButton(icon=ft.Icons.MENU, tooltip="Menü", on_click=menuac),
+		ft.IconButton(icon=ft.Icons.BOOK, tooltip="Kitaplar", on_click=kitaplatac),
+		ft.IconButton(icon=ft.Icons.EXPLORE_ROUNDED, tooltip="Ders Siteleri", on_click=alternatifac)
 
 
-		t = threading.Thread(target=mesajyazdir, daemon=True)
-		t.start()
+		], alignment = ft.MainAxisAlignment.CENTER, spacing=10)
 
-	btn = ft.IconButton(icon=ft.Icons.SEND, icon_size = 24, on_click=mesaj_godner)
-	yazi = ft.Text("")
+	her_yer = ft.Container(content=ft.Column(controls=[
+		
 
-	alt_bar = ft.Row([yazikutusu, btn])
+		],wrap=True),
+	expand=True)
 
+	pencere.add(her_yer, alt_bar)
 
-	pencere.add(yazi, mesajlistesi, alt_bar)
-
-ft.run(main, view=ft.AppView.WEB_BROWSER)
+ft.run(main)
