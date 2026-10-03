@@ -69,10 +69,10 @@ def main(pencere: ft.Page):
 
 		her_yer = ft.Container(content=ft.Column(controls=[
 			ft.Text("Alternatif Sitelere Hoş Geldin! aşağıdaki sitelerden soru çozebilirsin ;)"),
-			dt.Buton("Derslig", url="https://www.derslig.com"),
-			ft.Button("Tonguç Akedemi", url="tongucakademi.com"),
-			ft.Button("Morpa Kampüs", url="morpakampus.com"),
-			ft.Button()
+			ft.Button("Derslig", url="https://www.derslig.com"),
+			ft.Button("Tonguç Akedemi", url="https://www.tongucakademi.com"),
+			ft.Button("Morpa Kampüs", url="https://www.morpakampus.com"),
+			
 
 
 
