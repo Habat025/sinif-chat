@@ -52,14 +52,14 @@ def main(pencere: ft.Page):
 		pencere.add(her_yer, alt_bar)
 
 		def siteac(site):
-			pencere.launch_url(site)
+			pencere.open(ft.UrlLauncher(site))
 
 
 	def alternatifac():
-		pencere.clean()
+		
 
 		def siteac(site):
-			pencere.launch_url(site)
+			pencere.open(ft.UrlLauncher(site))
 
 		her_yer = ft.Container(content=ft.Column(controls=[
 			ft.Text("Alternatif Sitelere Hoş Geldin! aşağıdaki sitelerden soru çozebilirsin ;)"),
