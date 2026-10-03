@@ -1,11 +1,11 @@
 import flet as ft
 import shelve
+import requests
 import webbrowser
 
 def main(pencere: ft.Page):
 	pencere.title = "Pear Ders Kutusu"
 	pencere.thememode = ft.ThemeMode.DARK
-
 
 
 
@@ -58,8 +58,6 @@ def main(pencere: ft.Page):
 			], wrap=True),expand=True)
 
 		pencere.add(kitaplar, alt_bar)
-
-
 		
 
 
@@ -82,12 +80,73 @@ def main(pencere: ft.Page):
 
 
 		
-		
+	def youtuberac():
+		pencere.clean()
+
+		youtuberler = ft.Container(content=ft.Column(controls=[
+			ft.Text("Merhaba! Aşağıdaki Youtube Kananallarından Ders ve Konu Anlatımlarını İzleyebilirsin:"),
+			ft.Button("Tonguç Akedemi(Sınıfını Seç)", url="https://www.youtube.com/@tongucakademi"),
+			ft.Button("Eldivenli Hoca", url="https://www.youtube.com/@Eldivenlihoca"),
+			ft.Button("Derslig Youtube", url="https://www.youtube.com/@Eldivenlihoca"),
+			ft.Button("Okulistik Eğitim Platformu", url="https://www.youtube.com/@teknolist")
+
+			], wrap=True),
+		expand=True)
+
+		pencere.add(youtuberler, alt_bar)
+
+
+	def supportac():
+		pencere.clean()
+
+		mesaj = ft.TextField(label="Öneri/Hata")
+
+
+		soru = ft.Dropdown(label="Öneri mi? Hata Bildirimi mi?",
+				options=[ft.dropdown.Option("Hata"),
+				ft.dropdown.Option("Öneri")]
+				)
+
+		def mesaj_at():
+			tam_mesaj = mesaj.value
+			tam_soru = soru.value
+			try:
+				if not tam_mesaj or not tam_soru:
+					bolum.content.controls.append(ft.Text("Lütfen Her Alanı Doldurun"))
+					return
+				else:
+					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=tam_mesaj,tam_soru.encode("utf-8"))
+
+
+			except:
+				bolum.content.append(ft.Text("İnternet kopuk veya başka bir durum var."))
+
+			
+
+
+		buton = ft.IconButton(icon=ft.Icons.SEND_ROUNDED, on_click=mesaj_at)
+
+		bolum = ft.Container(alignment=ft.Alignment(0, 0),content=ft.Column(
+			alignment=ft.MainAxisAlignment.CENTER,  
+        	horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        	controls=
+			[mesaj,
+			soru,
+			buton],
+			),expand=True)
+
+
+
+
+		pencere.add(bolum, alt_bar)
+			
 
 	alt_bar = ft.Row(controls=[
 		ft.IconButton(icon=ft.Icons.MENU, tooltip="Menü", on_click=menuac),
 		ft.IconButton(icon=ft.Icons.BOOK, tooltip="Kitaplar", on_click=kitaplatac),
-		ft.IconButton(icon=ft.Icons.EXPLORE_ROUNDED, tooltip="Ders Siteleri", on_click=alternatifac)
+		ft.IconButton(icon=ft.Icons.EXPLORE_ROUNDED, tooltip="Ders Siteleri", on_click=alternatifac),
+		ft.IconButton(icon=ft.Icons.PLAY_ARROW_ROUNDED, tooltip="Youtube Kanalları", on_click=youtuberac),
+		ft.IconButton(icon=ft.Icons.FEEDBACK_ROUNDED, tooltip="Öneri ve Hata Bildirim", on_click=supportac)
 
 
 		], alignment = ft.MainAxisAlignment.CENTER, spacing=10)
