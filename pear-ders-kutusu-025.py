@@ -2,7 +2,7 @@ import flet as ft
 import shelve
 import requests
 import webbrowser
-import threads
+import threading
 
 def main(pencere: ft.Page):
 	pencere.title = "Pear Ders Kutusu"
@@ -97,7 +97,7 @@ def main(pencere: ft.Page):
 		pencere.add(youtuberler, alt_bar)
 
 
-	def supportac():
+	def supportac( bolum):
 		pencere.clean()
 
 		mesaj = ft.TextField(label="Öneri/Hata", multiline=True, border_color="Red")
@@ -116,8 +116,8 @@ def main(pencere: ft.Page):
 
 			mesaj.value = ""
 			soru.value = "" 
-			mesaj.update()
-			soru.update()
+			pencere.update()
+			pencere.update()
 
 			try:
 				
@@ -127,19 +127,23 @@ def main(pencere: ft.Page):
 
 				else:
 					requests.post("https://ntfy.sh/pear_ders_kutusu_025",
-					 data=metin.encode("utf-8"),
-					 timeout=5),
-					 headers={"Content-Type": "text/plain; charset=utf-8"}
-					bolum.content.controls.append(ft.Text("Talebiniz Gönderilmiştir"))
+					data=metin.encode("utf-8"),
+					timeout=5),
+					headers={"Content-Type": "text/plain; charset=utf-8"},
+					pencere.snack_bar = ft.SnackBar(ft.Text("Talebiniz Uygulanmıştır"), show_close_icon=True)
+					pencere.snack_bar.open = True
+					pencere.update()
 			
 
 
 					
 			except Exception as err:
-				bolum.content.controls.append(ft.Text(f"İnternet kopuk veya başka bir durum var. Erroe: {err} \n"))
+				pencere.snack_bar = ft.SnackBar(ft.Text(f"Bağlantı kopuk veya başka bir durum oldu. error: {err}"), show_close_icon=True)
+				pencere.snack_bar.open = True
+				pencere.update()
 
 			bolum.update()
-		threads.threading(target=mesaj_at, daemon=True).start()
+		threading.Thread(target=mesaj_at,  daemon=True).start()
 
 
 		buton = ft.IconButton(icon=ft.Icons.SEND_ROUNDED, on_click=mesaj_at)
