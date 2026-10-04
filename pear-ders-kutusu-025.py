@@ -99,7 +99,7 @@ def main(pencere: ft.Page):
 	def supportac():
 		pencere.clean()
 
-		mesaj = ft.TextField(label="Öneri/Hata")
+		mesaj = ft.TextField(label="Öneri/Hata", multiline=True, border_color="Red")
 
 
 		soru = ft.Dropdown(label="Öneri mi? Hata Bildirimi mi?",
@@ -115,8 +115,8 @@ def main(pencere: ft.Page):
 					bolum.content.controls.append(ft.Text("Lütfen Her Alanı Doldurun"))
 					return
 				else:
-					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=f"{tam_mesaj,tam_soru}".encode("utf-8"))
-
+					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=f"istediği şey={tam_mesaj},soru={tam_soru}".encode("utf-8"))
+					bolum.content.controls.Append(ft.Text("Talebiniz Gönderilmiştir"))
 
 			except:
 				bolum.content.append(ft.Text("İnternet kopuk veya başka bir durum var."))
