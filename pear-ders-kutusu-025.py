@@ -110,6 +110,8 @@ def main(pencere: ft.Page):
 		def mesaj_at():
 			tam_mesaj = mesaj.value
 			tam_soru = soru.value
+
+			metin = f"istediği şey={tam_mesaj}, soru={tam_soru}"
 			try:
 				
 				if not tam_mesaj or not tam_soru:
@@ -117,7 +119,7 @@ def main(pencere: ft.Page):
 					return
 
 				else:
-					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=f"istediği şey={tam_mesaj},   soru={tam_soru}".encode("utf-8"))
+					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=metin.encode("utf-8"))
 					bolum.content.controls.append(ft.Text("Talebiniz Gönderilmiştir"))
 					mesaj.value = ""
 
