@@ -117,6 +117,8 @@ def main(pencere: ft.Page):
 				else:
 					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=f"istediği şey={tam_mesaj},   soru={tam_soru}".encode("utf-8"))
 					bolum.content.controls.append(ft.Text("Talebiniz Gönderilmiştir"))
+					mesaj.value = ""
+					
 
 			except:
 				bolum.content.controls.append(ft.Text("İnternet kopuk veya başka bir durum var."))
@@ -129,8 +131,8 @@ def main(pencere: ft.Page):
 		bolum = ft.Container(alignment=ft.Alignment(0, 0),content=ft.Column(
 			alignment=ft.MainAxisAlignment.CENTER,  
         	horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        	controls=
-			[mesaj,
+        	controls=[
+			mesaj,
 			soru,
 			buton],
 			),expand=True)
