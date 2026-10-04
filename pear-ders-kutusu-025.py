@@ -126,7 +126,10 @@ def main(pencere: ft.Page):
 					return
 
 				else:
-					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=metin.encode("utf-8"), timeout=5)
+					requests.post("https://ntfy.sh/pear_ders_kutusu_025",
+					 data=metin.encode("utf-8"),
+					 timeout=5),
+					 headers={"Content-Type": "text/plain; charset=utf-8"}
 					bolum.content.controls.append(ft.Text("Talebiniz Gönderilmiştir"))
 			
 
