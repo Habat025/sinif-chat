@@ -111,15 +111,14 @@ def main(pencere: ft.Page):
 			tam_mesaj = mesaj.value
 			tam_soru = soru.value
 			try:
-				if not tam_mesaj or not tam_soru:
-					bolum.content.controls.append(ft.Text("Lütfen Her Alanı Doldurun"))
-					return
-				else:
+				
 					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=f"istediği şey={tam_mesaj},   soru={tam_soru}".encode("utf-8"))
 					bolum.content.controls.append(ft.Text("Talebiniz Gönderilmiştir"))
 					mesaj.value = ""
-					
 
+					if not tam_mesaj or not tam_soru:
+						bolum.content.controls.append(ft.Text("Lütfen Her Alanı Doldurun"))
+						return
 			except:
 				bolum.content.controls.append(ft.Text("İnternet kopuk veya başka bir durum var."))
 
