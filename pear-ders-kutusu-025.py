@@ -115,7 +115,8 @@ def main(pencere: ft.Page):
 
 			mesaj.value = ""
 			soru.value = "" 
-			pencere.update()
+			mesaj.update()
+			soru.update()
 
 			try:
 				
@@ -126,13 +127,14 @@ def main(pencere: ft.Page):
 				else:
 					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=metin.encode("utf-8"), timeout=5)
 					bolum.content.controls.append(ft.Text("Talebiniz Gönderilmiştir"))
+			
 
 
 					
 			except Exception as err:
 				bolum.content.controls.append(ft.Text(f"İnternet kopuk veya başka bir durum var. Erroe: {err} \n"))
 
-			
+			bolum.update()
 
 
 		buton = ft.IconButton(icon=ft.Icons.SEND_ROUNDED, on_click=mesaj_at)
