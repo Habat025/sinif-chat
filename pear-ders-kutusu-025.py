@@ -115,11 +115,11 @@ def main(pencere: ft.Page):
 					bolum.content.controls.append(ft.Text("Lütfen Her Alanı Doldurun"))
 					return
 				else:
-					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=f"istediği şey={tam_mesaj},soru={tam_soru}".encode("utf-8"))
-					bolum.content.controls.Append(ft.Text("Talebiniz Gönderilmiştir"))
+					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=f"istediği şey={tam_mesaj},   soru={tam_soru}".encode("utf-8"))
+					bolum.content.controls.append(ft.Text("Talebiniz Gönderilmiştir"))
 
 			except:
-				bolum.content.append(ft.Text("İnternet kopuk veya başka bir durum var."))
+				bolum.content.controls.append(ft.Text("İnternet kopuk veya başka bir durum var."))
 
 			
 
