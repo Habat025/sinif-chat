@@ -2,6 +2,7 @@ import flet as ft
 import shelve
 import requests
 import webbrowser
+import threads
 
 def main(pencere: ft.Page):
 	pencere.title = "Pear Ders Kutusu"
@@ -135,6 +136,7 @@ def main(pencere: ft.Page):
 				bolum.content.controls.append(ft.Text(f"İnternet kopuk veya başka bir durum var. Erroe: {err} \n"))
 
 			bolum.update()
+		threads.threading(target=mesaj_at, daemon=True).start()
 
 
 		buton = ft.IconButton(icon=ft.Icons.SEND_ROUNDED, on_click=mesaj_at)
