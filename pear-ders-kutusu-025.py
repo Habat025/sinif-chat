@@ -144,6 +144,7 @@ def main(pencere: ft.Page):
 
 			bolum.update()
 		threading.Thread(target=mesaj_at,  daemon=True).start()
+		pencere.update()
 
 
 		buton = ft.IconButton(icon=ft.Icons.SEND_ROUNDED, on_click=mesaj_at)
