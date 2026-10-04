@@ -130,7 +130,7 @@ def main(pencere: ft.Page):
 					data=metin.encode("utf-8"),
 					timeout=5),
 					headers={"Content-Type": "text/plain; charset=utf-8"},
-					pencere.snack_bar = ft.SnackBar(ft.Text("Talebiniz Uygulanmıştır"), show_close_icon=True)
+					pencere.snack_bar = ft.SnackBar(content=ft.Text("Talebiniz Uygulanmıştır"), show_close_icon=True)
 					pencere.snack_bar.open = True
 					pencere.update()
 			
@@ -138,7 +138,7 @@ def main(pencere: ft.Page):
 
 					
 			except Exception as err:
-				pencere.snack_bar = ft.SnackBar(ft.Text(f"Bağlantı kopuk veya başka bir durum oldu. error: {err}"), show_close_icon=True)
+				pencere.snack_bar = ft.SnackBar(content=ft.Text(f"Bağlantı kopuk veya başka bir durum oldu. error: {err}"), show_close_icon=True)
 				pencere.snack_bar.open = True
 				pencere.update()
 
