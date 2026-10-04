@@ -112,6 +112,11 @@ def main(pencere: ft.Page):
 			tam_soru = soru.value
 
 			metin = f"istediği şey={tam_mesaj}, soru={tam_soru}"
+
+			mesaj.value = ""
+			soru.value = "" 
+			pencere.update()
+
 			try:
 				
 				if not tam_mesaj or not tam_soru:
@@ -119,13 +124,13 @@ def main(pencere: ft.Page):
 					return
 
 				else:
-					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=metin.encode("utf-8"))
+					requests.post("https://ntfy.sh/pear_ders_kutusu_025", data=metin.encode("utf-8"), timeout=5)
 					bolum.content.controls.append(ft.Text("Talebiniz Gönderilmiştir"))
-					mesaj.value = ""
+
 
 					
-			except:
-				bolum.content.controls.append(ft.Text("İnternet kopuk veya başka bir durum var."))
+			except Exception as err:
+				bolum.content.controls.append(ft.Text(f"İnternet kopuk veya başka bir durum var. Erroe: {err} \n"))
 
 			
 
