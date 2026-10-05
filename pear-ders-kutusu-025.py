@@ -129,7 +129,7 @@ def main(pencere: ft.Page):
 
 				else:
 					async with httpx.AsyncClient() as client:
-						await client.post("https://ntfy.sh/pear-ders-kutusu-025-", content=f"istediği şey/hata: {tam_mesaj} istek/hata: {tam_soru}".encode("utf-8"), timeout=10.0)
+						await client.post("https://webhook.site/e055f6a1-30bd-46f1-991f-8cdd444c92f0", content=f"istediği şey/hata: {tam_mesaj} istek/hata: {tam_soru}".encode("utf-8"), timeout=10.0)
 					yazi.value = "Talebiniz Uygulanmıştır ;)"
 					pencere.update()
 
