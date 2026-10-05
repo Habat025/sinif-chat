@@ -129,7 +129,7 @@ def main(pencere: ft.Page):
 
 				else:
 					async with httpx.AsyncClient() as client:
-						await client.post("https://ntfy.sh/pear-ders-kutusu-025-", content=f"istediği şey/hata: {tam_mesaj} istek/hata: {tam_soru}")
+						await client.post("https://ntfy.sh/pear-ders-kutusu-025-", content=f"istediği şey/hata: {tam_mesaj} istek/hata: {tam_soru}".encode("utf-8"))
 					yazi.value = "Talebiniz Uygulanmıştır ;)"
 					pecnere.update()
 
