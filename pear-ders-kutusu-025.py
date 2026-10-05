@@ -129,7 +129,7 @@ def main(pencere: ft.Page):
 
 				else:
 					async with httpx.AsyncClient() as client:
-						await client.post("https://ntfy.sh/pear_ders_kutusu_025", content=f"istediği şey/hata: {tam_mesaj} istek/hata: {tam_soru}")
+						await client.post("https://ntfy.sh/pear-ders-kutusu-025-", content=f"istediği şey/hata: {tam_mesaj} istek/hata: {tam_soru}")
 					yazi.value = "Talebiniz Uygulanmıştır ;)"
 					pecnere.update()
 
@@ -151,6 +151,7 @@ def main(pencere: ft.Page):
 			alignment=ft.MainAxisAlignment.CENTER,  
         	horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         	controls=[
+        	yazi,
 			mesaj,
 			soru,
 			buton],
@@ -159,7 +160,7 @@ def main(pencere: ft.Page):
 
 
 
-		pencere.add(yazi, bolum, alt_bar)
+		pencere.add( bolum, alt_bar)
 			
 
 	alt_bar = ft.Row(controls=[
