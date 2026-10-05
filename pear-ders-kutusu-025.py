@@ -138,6 +138,7 @@ def main(pencere: ft.Page):
 
 					
 			except Exception as err:
+				yazi.value = f"Taleb Uygulanamadı. internet kopuk, vpn açık veya başka bir durum oldu. lütfen daha sonra tekrar denemeyiniz, error:{err}\n"
 				
 				pencere.update()
 
