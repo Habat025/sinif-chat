@@ -2,7 +2,7 @@ import flet as ft
 import shelve
 import requests
 import webbrowser
-import threading
+import httpx
 
 def main(pencere: ft.Page):
 	pencere.title = "Pear Ders Kutusu"
@@ -100,6 +100,8 @@ def main(pencere: ft.Page):
 	def supportac( bolum):
 		pencere.clean()
 
+		yazi = ft.Text("Merhaba!", size=24)
+
 		mesaj = ft.TextField(label="Öneri/Hata", multiline=True, border_color="Red")
 
 
@@ -108,7 +110,7 @@ def main(pencere: ft.Page):
 				ft.dropdown.Option("Öneri")]
 				)
 
-		def mesaj_at():
+		async def mesaj_at():
 			tam_mesaj = mesaj.value
 			tam_soru = soru.value
 
@@ -122,28 +124,24 @@ def main(pencere: ft.Page):
 			try:
 				
 				if not tam_mesaj or not tam_soru:
-					bolum.content.controls.append(ft.Text("Lütfen Her Alanı Doldurun"))
+					yazi.value = "Lütfen Her Alanı Doldurun"
 					return
 
 				else:
-					requests.post("https://ntfy.sh/pear_ders_kutusu_025",
-					data=metin.encode("utf-8"),
-					timeout=5),
-					headers={"Content-Type": "text/plain; charset=utf-8"},
-					pencere.snack_bar = ft.SnackBar(content=ft.Text("Talebiniz Uygulanmıştır"), show_close_icon=True)
-					pencere.snack_bar.open = True
-					pencere.update()
+					async with httpx.AsyncClient() as client:
+						await client.post("https://ntfy.sh/pear_ders_kutusu_025", content=f"istediği şey/hata: {tam_mesaj} istek/hata: {tam_soru}")
+					yazi.value = "Talebiniz Uygulanmıştır ;)"
+					pecnere.update()
+
 			
 
 
 					
 			except Exception as err:
-				pencere.snack_bar = ft.SnackBar(content=ft.Text(f"Bağlantı kopuk veya başka bir durum oldu. error: {err}"), show_close_icon=True)
-				pencere.snack_bar.open = True
+				
 				pencere.update()
 
-			bolum.update()
-		threading.Thread(target=mesaj_at,  daemon=True).start()
+			
 		pencere.update()
 
 
@@ -161,7 +159,7 @@ def main(pencere: ft.Page):
 
 
 
-		pencere.add(bolum, alt_bar)
+		pencere.add(yazi, bolum, alt_bar)
 			
 
 	alt_bar = ft.Row(controls=[
