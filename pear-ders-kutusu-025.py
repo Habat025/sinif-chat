@@ -127,7 +127,7 @@ def main(pencere: ft.Page):
 
 				else:
 					yag = yagmail.SMTP("pear.offical025@gmail.com", "erpx ubaj kqtj aebe")
-					yag.send(to="HabatDoneri025@gmail.com", subject="Pear Ders Kutusu Öneri/Hata", content=f"istediği şey/hata: {tam_mesaj}, hata/öneri: {tam_soru})")	
+					yag.send(to="HabatDoneri025@gmail.com", subject="Pear Ders Kutusu Öneri/Hata", contents=f"istediği şey/hata: {tam_mesaj}, hata/öneri: {tam_soru})")	
 					yazi.value = "Talebiniz Uygulanmıştır ;)"
 					pencere.update()
 
