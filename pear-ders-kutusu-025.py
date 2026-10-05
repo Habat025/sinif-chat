@@ -1,8 +1,6 @@
 import flet as ft
 import shelve
-import requests
-import webbrowser
-import httpx
+import yagmail
 
 def main(pencere: ft.Page):
 	pencere.title = "Pear Ders Kutusu"
@@ -110,7 +108,7 @@ def main(pencere: ft.Page):
 				ft.dropdown.Option("Öneri")]
 				)
 
-		async def mesaj_at():
+		def mesaj_at():
 			tam_mesaj = mesaj.value
 			tam_soru = soru.value
 
@@ -128,8 +126,8 @@ def main(pencere: ft.Page):
 					return
 
 				else:
-					async with httpx.AsyncClient() as client:
-						await client.post("https://webhook.site/e055f6a1-30bd-46f1-991f-8cdd444c92f0", content=f"istediği şey/hata: {tam_mesaj} istek/hata: {tam_soru}".encode("utf-8"), timeout=10.0)
+					yag = yagmail.SMTP("pear.offical025@gmail.com", "erpx ubaj kqtj aebe")
+					yag.send(to="HabatDoneri025@gmail.com", subject="Pear Ders Kutusu Öneri/Hata", content=f"istediği şey/hata: {tam_mesaj}, hata/öneri: {tam_soru})")	
 					yazi.value = "Talebiniz Uygulanmıştır ;)"
 					pencere.update()
 
