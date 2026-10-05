@@ -131,7 +131,7 @@ def main(pencere: ft.Page):
 					async with httpx.AsyncClient() as client:
 						await client.post("https://ntfy.sh/pear-ders-kutusu-025-", content=f"istediği şey/hata: {tam_mesaj} istek/hata: {tam_soru}".encode("utf-8"))
 					yazi.value = "Talebiniz Uygulanmıştır ;)"
-					pecnere.update()
+					pencere.update()
 
 			
 
@@ -139,7 +139,6 @@ def main(pencere: ft.Page):
 					
 			except Exception as err:
 				yazi.value = f"Taleb Uygulanamadı. internet kopuk, vpn açık veya başka bir durum oldu. lütfen daha sonra tekrar denemeyiniz, error:{err}\n"
-				
 				pencere.update()
 
 			
