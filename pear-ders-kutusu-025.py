@@ -1,6 +1,8 @@
 import flet as ft
-import shelve
+import asyncio
 import yagmail
+
+
 
 def main(pencere: ft.Page):
 	pencere.title = "Pear Ders Kutusu"
@@ -108,42 +110,49 @@ def main(pencere: ft.Page):
 				ft.dropdown.Option("Öneri")]
 				)
 
-		def mesaj_at():
+		
+
+		def mail_at():
 			tam_mesaj = mesaj.value
 			tam_soru = soru.value
 
-			metin = f"istediği şey={tam_mesaj}, soru={tam_soru}"
+			yag = yagmail.SMTP("HabatDoneri025@gmail.com", "sapdchoggvkzhnmw")
 
-			mesaj.value = ""
-			soru.value = "" 
-			pencere.update()
-			pencere.update()
+			yag.send(to="pear.offical025@gmail.com",
+					subject="Pear Ders Kutusu",
+					contents=f"istediği şey/hata: {tam_mesaj}, öneri/hata?: {tam_soru}"
+					)
 
-			try:
-				
-				if not tam_mesaj or not tam_soru:
-					yazi.value = "Lütfen Her Alanı Doldurun"
-					return
+			yag.close()
 
-				else:
-					yag = yagmail.SMTP("pear.offical025@gmail.com", "erpx ubaj kqtj aebe")
-					yag.send(to="HabatDoneri025@gmail.com", subject="Pear Ders Kutusu Öneri/Hata", contents=f"istediği şey/hata: {tam_mesaj}, hata/öneri: {tam_soru})")	
-					yazi.value = "Talebiniz Uygulanmıştır ;)"
-					pencere.update()
-
-			 
-
-
-					
-			except Exception as err:
-				yazi.value = f"Taleb Uygulanamadı. internet kopuk, vpn açık veya başka bir durum oldu. lütfen daha sonra tekrar denemeyiniz, error:{err}\n"
-				pencere.update()
 
 			
-		pencere.update()
 
+		async def gonder():
+			tam_mesaj = mesaj.value
+			tam_soru = soru.value
 
-		buton = ft.IconButton(icon=ft.Icons.SEND_ROUNDED, on_click=mesaj_at)
+			if not tam_mesaj or not tam_soru:
+				yazi.value = "Lütfen Her alanı doldurunuz"
+				return
+
+			yazi.value = "Gönderiliyor..."
+
+			try:
+				await asyncio.to_thread(mail_at)
+				yazi.value ="Talebiniz Uygulanmıştır"
+				mesaj.value = ""
+				soru.value = ""
+				pencere.update()
+
+				
+
+			except Exception as err:
+				yazi.value = f"Talebiniz Malesef Uygulanmıştır. Hata: {err}"
+
+		
+
+		buton = ft.IconButton(icon=ft.Icons.SEND_ROUNDED, on_click=gonder)
 
 		bolum = ft.Container(alignment=ft.Alignment(0, 0),content=ft.Column(
 			alignment=ft.MainAxisAlignment.CENTER,  
@@ -158,7 +167,7 @@ def main(pencere: ft.Page):
 
 
 
-		pencere.add( bolum, alt_bar)
+		pencere.add(bolum, alt_bar)
 			
 
 	alt_bar = ft.Row(controls=[
