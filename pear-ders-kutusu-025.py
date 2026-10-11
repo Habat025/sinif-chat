@@ -100,7 +100,7 @@ def main(pencere: ft.Page):
 	def supportac( bolum):
 		pencere.clean()
 
-		yazi = ft.Text("Merhaba!", size=24)
+		yazi = ft.Text("Merhaba! Mlesef Support Bölümü çalışmıyor. Özür Dileriz ;(", size=24)
 
 		mesaj = ft.TextField(label="Öneri/Hata", multiline=True, border_color="Red")
 
